@@ -4,7 +4,7 @@
   <parent>
       <groupId>com.exist.ecc</groupId>
       <artifactId>core</artifactId>
-      <version>1.0</version>
+      <version>${myversion}</version>
   </parent>
   <artifactId>service</artifactId>
   <packaging>jar</packaging>
