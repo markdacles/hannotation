@@ -1,4 +1,4 @@
-import java.util.Set;
+import java.util.*;
 
 public class ContactService {
     private static PersonnelDao personnelDao;
@@ -7,24 +7,34 @@ public class ContactService {
         personnelDao = new PersonnelDao();
     }
 
-    public Contact findById(long id) {
-        Contact contact = personnelDao.findContactById(id);
-        return contact;
-    }
-
-    public void addContactToPersonnel(Contact c, long id) {
-        Personnel p = personnelDao.getPersonnel(id);
-        p.getContact().add(c);
+    public void addContactToPersonnel(Personnel p) {
         personnelDao.addContactToPersonnel(p);
     }
 
-    public void updateContact(Contact c) {
-        personnelDao.contactUpdate(c);
+    public void updateContact(Personnel p) {
+        personnelDao.contactUpdate(p);
     }
 
-    public void removeContact(long id, Contact c) {
+    public void removeContact(long id, long cid) {
         Personnel p = personnelDao.getPersonnel(id);
-        p.getContact().remove(c);
+        for(Contact c : p.getContact()) {
+            if(c.getContactId() == cid) {
+                p.getContact().remove(c);
+                break;
+            }
+        }
         personnelDao.removeContact(p);
+    }
+
+    public boolean doesContactExist(long id) {
+        List<Personnel> personnelList =  personnelDao.findAll();
+        for(Personnel p : personnelList) {
+            for(Contact c : p.getContact()) {
+                if(c.getContactId() == id) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -106,7 +106,7 @@ public class ScanUtil {
 		String str = scanString();
 		while(redo) {
 			try {
-				if (!str.matches("[a-zA-Z_]+")) {
+				if (!str.matches("[a-zA-Z ]+")) {
 				    System.out.println("Invalid input. Please try again. ");
 				    System.out.print(again);
 				    str = scanString();
@@ -130,7 +130,7 @@ public class ScanUtil {
 		}
 		while(redo) {
 			try {
-				if (!str.matches("[a-zA-Z_]+")) {
+				if (!str.matches("[a-zA-Z ]+")) {
 				    System.out.println("Invalid input. Please try again. ");
 				    System.out.print(again);
 				    str = scanString();
@@ -154,7 +154,7 @@ public class ScanUtil {
 		String str = scanString();
 		while(redo) {
 			try {
-				if (!str.matches("[a-zA-Z0-9]+")) {
+				if (!str.matches("[a-zA-Z0-9 ]+")) {
 				    System.out.println("Invalid input. Please try again. ");
 				    System.out.print(again);
 				    str = scanString();
@@ -178,7 +178,7 @@ public class ScanUtil {
 		}
 		while(redo) {
 			try {
-				if (!str.matches("[a-zA-Z0-9]+")) {
+				if (!str.matches("[a-zA-Z0-9 ]+")) {
 				    System.out.println("Invalid input. Please try again. ");
 				    System.out.print(again);
 				    str = scanString();

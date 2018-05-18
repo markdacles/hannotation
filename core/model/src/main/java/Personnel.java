@@ -60,14 +60,12 @@ public class Personnel {
 
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
-    @JoinTable(name = "personnel_contact", 
-        joinColumns = {@JoinColumn(name="id")}, 
-        inverseJoinColumns = {@JoinColumn(name = "contact_id")})
+    @JoinColumn(name = "personnel_id")
     public Set<Contact> getContact() { return contact; }
     public void setContact(Set<Contact> contact) { this.contact = contact; }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade(CascadeType.SAVE_UPDATE)
+    @ManyToMany(targetEntity = Roles.class, fetch = FetchType.EAGER)
+    @Cascade({CascadeType.SAVE_UPDATE})
     @JoinTable(name = "personnel_roles", 
         joinColumns = {@JoinColumn(name="id")}, 
         inverseJoinColumns = {@JoinColumn(name = "role_id")})

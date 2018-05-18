@@ -38,11 +38,8 @@ public class Roles {
 	public String getRole() { return role; }
 	public void setRole(String r) { role = r; }
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = Personnel.class, fetch = FetchType.LAZY, mappedBy = "roles")
     @Cascade(CascadeType.SAVE_UPDATE)
-    @JoinTable(name = "role_personnels", 
-        joinColumns = {@JoinColumn(name="role_id")}, 
-        inverseJoinColumns = {@JoinColumn(name = "id")})
 	public Set<Personnel> getPersonnel() { return personnel; }
 	public void setPersonnel(Set<Personnel> p) { personnel = p; }
 

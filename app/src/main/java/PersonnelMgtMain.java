@@ -119,7 +119,7 @@ public class PersonnelMgtMain {
 	      			
 	      			System.out.println("\nNEW CONTACT INFO");
 	      			ScanUtil.flushScanner();
-	      			contactService.addContactToPersonnel(addContactInfo(), id);
+	      			contactService.addContactToPersonnel(addContactInfo(personnelService.findById(id)));
 	      			System.out.println("Contact successfully added.");
 
 	      		} else if (contactOption == 2) {
@@ -131,13 +131,13 @@ public class PersonnelMgtMain {
 	      			System.out.print("Enter ID of contact to be updated: ");
 	      			ScanUtil.flushScanner();
 	      			cid = ScanUtil.scanLong("Enter a valid contact ID: ");
-	      			while(contactService.findById(cid) == null) {
+	      			while(contactService.doesContactExist(cid) == false) {
 	      				System.out.println("Invalid input. Please try again. ");
 						System.out.print("Enter a valid contact ID: ");
 						cid = ScanUtil.scanLong("Enter a valid contact ID: ");
 	      			}
 
-	      			contactService.updateContact(updateContact(cid));
+	      			contactService.updateContact(updateContact(id,cid));
 	      			System.out.println("Contact successfully updated.");
 
 	      		} else if (contactOption == 4) {
@@ -145,13 +145,12 @@ public class PersonnelMgtMain {
 	      			System.out.print("Enter ID of contact to be removed: ");
 	      			ScanUtil.flushScanner();
 	      			cid = ScanUtil.scanLong("Enter a valid contact ID: ");
-	      			while(contactService.findById(cid) == null) {
+	      			while(contactService.doesContactExist(cid) == false) {
 	      				System.out.println("Invalid input. Please try again. ");
 						System.out.print("Enter a valid contact ID: ");
 						cid = ScanUtil.scanLong("Enter a valid contact ID: ");
 	      			}
-	      			Contact c = contactService.findById(cid);
-	      			contactService.removeContact(id,c);
+	      			contactService.removeContact(id,cid);
 	      			System.out.println("Contact successfully removed.");
 	      		
 	      		} else if (contactOption == 5) {
@@ -325,29 +324,44 @@ public class PersonnelMgtMain {
 
 	}
 
-    private static Contact updateContact(long id) {
-    	Contact contact = contactService.findById(id);
-        System.out.print("\nLandline: ");
-        String landline = ScanUtil.scanVarCharOnlyU("Landline: ", contact.getLandline());
-        contact.setLandline(landline);
-        System.out.print("Mobile: ");
-        String mobile = ScanUtil.scanVarCharOnlyU("Mobile: ", contact.getMobile());
-        contact.setMobile(mobile);
-        System.out.print("Email: ");
-        String email = ScanUtil.scanVarCharOnlyU("Email: ", contact.getEmail());
-        contact.setEmail(email);
-
-        return contact;
+    private static Personnel updateContact(long id, long cid) {
+    	Personnel p = personnelService.findById(id);
+    	for(Contact c : p.getContact()) {
+    		if(c.getContactId() == cid) {
+	    		System.out.print("\nLandline: ");
+		        String landline = ScanUtil.scanVarCharOnlyU("Landline: ", c.getLandline());
+		        c.setLandline(landline);
+		        System.out.print("Mobile: ");
+		        String mobile = ScanUtil.scanVarCharOnlyU("Mobile: ", c.getMobile());
+		        c.setMobile(mobile);
+		        System.out.print("Email: ");
+		        String email = ScanUtil.scanVarCharOnlyU("Email: ", c.getEmail());
+		        c.setEmail(email);
+		        return p;
+	    	}
+    	}
+    	return p;
     }
 
     private static Personnel updatePersonnel(long id) {
    	    Personnel upPersonnel = personnelService.findById(id);
     	ScanUtil.flushScanner();
     	upPersonnel = updateBasicInfo(upPersonnel);
-
+    	Set<Contact> upContact = new HashSet<Contact>();
     	for(Contact c : upPersonnel.getContact()) {
-			updateContact(c.getContactId());
+    		// upPersonnel = updateContact(id,c.getContactId());
+    		System.out.print("\nLandline: ");
+	        String landline = ScanUtil.scanVarCharOnlyU("Landline: ", c.getLandline());
+	        c.setLandline(landline);
+	        System.out.print("Mobile: ");
+	        String mobile = ScanUtil.scanVarCharOnlyU("Mobile: ", c.getMobile());
+	        c.setMobile(mobile);
+	        System.out.print("Email: ");
+	        String email = ScanUtil.scanVarCharOnlyU("Email: ", c.getEmail());
+	        c.setEmail(email);
+	        upContact.add(c);
     	}
+    	upPersonnel.setContact(upContact);
 
     	System.out.println("Available Roles: ");
   		Set<Roles> aRoles = roleService.findAll();
@@ -492,7 +506,7 @@ public class PersonnelMgtMain {
 	    			
 		ScanUtil.flushScanner();
 		newPersonnel = addBasicInfo(newPersonnel);
-		newPersonnel.getContact().add(addContactInfo());
+		newPersonnel = addContactInfo(newPersonnel);
 
 		personnelService.showRoles();
 		System.out.print("Roles (Separate by comma for multiple roles): ");
@@ -566,7 +580,7 @@ public class PersonnelMgtMain {
 		return p;
 	}
 
-	private static Contact addContactInfo() {
+	private static Personnel addContactInfo(Personnel p) {
 		Contact newContact = new Contact();
 		System.out.print("\nLandline: ");
 		String landline = ScanUtil.scanVarCharOnly("Landline: ");
@@ -578,6 +592,7 @@ public class PersonnelMgtMain {
 		String email = ScanUtil.scanVarCharOnly("Email: ");
 		newContact.setEmail(email);
 
-		return newContact;
+		p.getContact().add(newContact);
+		return p;
 	}
 }

@@ -45,11 +45,6 @@
           <groupId>com.exist.ecc</groupId>
           <artifactId>service</artifactId>
     </dependency>
-    
-     <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-java8</artifactId>
-    </dependency>
 
   </dependencies>
 

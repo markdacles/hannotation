@@ -57,22 +57,15 @@ public class PersonnelDao {
       }
     }
 
-    public Contact findContactById(long id) {
-      HibernateUtil.openCurrentSession();
-      Contact contact = (Contact) HibernateUtil.getCurrentSession().get(Contact.class, id);
-      HibernateUtil.closeCurrentSession();
-      return contact;
-    }
-
     public void addContactToPersonnel(Personnel p) {
       HibernateUtil.openCurrentSessionWithTrans();
       HibernateUtil.getCurrentSession().update(p);
       HibernateUtil.closeCurrentSessionWithTrans();
     }
 
-    public void contactUpdate(Contact newContact) {
+    public void contactUpdate(Personnel p) {
       HibernateUtil.openCurrentSessionWithTrans();
-      HibernateUtil.getCurrentSession().update(newContact);
+      HibernateUtil.getCurrentSession().update(p);
       HibernateUtil.closeCurrentSessionWithTrans();
     }
 
