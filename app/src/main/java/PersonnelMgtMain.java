@@ -15,8 +15,8 @@ public class PersonnelMgtMain {
 	private static PersonnelService personnelService = new PersonnelService();
 	
 	public static void main(String[] args) {
-		Logger log = Logger.getLogger("org.hibernate");
-        log.setLevel(Level.INFO);
+		// Logger log = Logger.getLogger("org.hibernate");
+  //       log.setLevel(Level.INFO);
 
         int mainOption = 0, personnelOption = 0, pid = 0, contactOption = 0, roleOption = 0;
         long id = 0, cid = 0, rid = 0;
@@ -228,7 +228,7 @@ public class PersonnelMgtMain {
 
 	      		}
 	      	} else if(mainOption == 4) {
-
+	      	
 	      		redo = false;
 	      		HibernateUtil.shutDown();
 

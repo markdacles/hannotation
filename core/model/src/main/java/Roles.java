@@ -21,7 +21,6 @@ import java.lang.*;
 
 
 @Entity
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "roles")
 public class Roles {
@@ -42,7 +41,6 @@ public class Roles {
 	public String getRole() { return role; }
 	public void setRole(String r) { role = r; }
 
-	@Cacheable
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(targetEntity = Personnel.class, fetch = FetchType.LAZY, mappedBy = "roles")
     @Cascade(CascadeType.SAVE_UPDATE)

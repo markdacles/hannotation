@@ -14,7 +14,7 @@ public class PersonnelDao {
 
   	public List<Personnel> findAll() {
 		HibernateUtil.openCurrentSession();
-    List<Personnel> personnelList = (List<Personnel>) HibernateUtil.getCurrentSession().createQuery("from Personnel").list();
+    List<Personnel> personnelList = (List<Personnel>) HibernateUtil.getCurrentSession().createQuery("from Personnel").setCacheable(true).list();
     HibernateUtil.closeCurrentSession();
     return personnelList;
   	}
@@ -42,6 +42,7 @@ public class PersonnelDao {
     public Personnel findById(long id) {
       HibernateUtil.openCurrentSession();
       Personnel personnel = (Personnel) HibernateUtil.getCurrentSession().get(Personnel.class, id);
+      System.out.println("ping"); 
       HibernateUtil.closeCurrentSession();
       return personnel;
     }

@@ -1,8 +1,10 @@
 import javax.persistence.*;
 import java.util.Objects;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "contact")
 public class Contact {
 

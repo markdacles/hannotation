@@ -4,7 +4,7 @@
   <parent>
       <groupId>com.exist.ecc</groupId>
       <artifactId>hibernate</artifactId>
-      <version>${myversion}</version>
+      <version>1.0</version>
   </parent>
   <artifactId>app</artifactId>
   <packaging>jar</packaging>

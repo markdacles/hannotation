@@ -8,7 +8,7 @@ public class RoleDao {
 
 	 public List<Roles> findAll() {
 		  HibernateUtil.openCurrentSession();
-	    List<Roles> roleList = (List<Roles>) HibernateUtil.getCurrentSession().createQuery("from Roles").list();
+	    List<Roles> roleList = (List<Roles>) HibernateUtil.getCurrentSession().createQuery("from Roles").setCacheable(true).list();
 	    HibernateUtil.closeCurrentSession();
 	    return roleList;
   	}
