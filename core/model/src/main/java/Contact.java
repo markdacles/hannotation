@@ -1,5 +1,6 @@
 import javax.persistence.*;
 import java.util.Objects;
+import org.hibernate.annotations.Cache;
 
 @Entity
 @Table(name = "contact")

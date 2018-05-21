@@ -15,8 +15,12 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "personnel")
 public class Personnel {
  
@@ -58,12 +62,16 @@ public class Personnel {
     public Date getDateHired() { return dateHired; }
     public void setDateHired(Date dateHired) { this.dateHired = dateHired; }  
 
+    @Cacheable
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     @JoinColumn(name = "personnel_id")
     public Set<Contact> getContact() { return contact; }
     public void setContact(Set<Contact> contact) { this.contact = contact; }
 
+    @Cacheable
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(targetEntity = Roles.class, fetch = FetchType.EAGER)
     @Cascade({CascadeType.SAVE_UPDATE})
     @JoinTable(name = "personnel_roles", 

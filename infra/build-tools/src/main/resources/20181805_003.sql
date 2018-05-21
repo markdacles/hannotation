@@ -1,4 +1,3 @@
-CREATE DATABASE personneldb;
 INSERT INTO roles(role) VALUES ('Back-end Developer');
 INSERT INTO roles(role) VALUES ('Front-end Developer');
 INSERT INTO roles(role) VALUES ('Support Personnel');
