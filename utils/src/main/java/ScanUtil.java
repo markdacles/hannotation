@@ -16,10 +16,10 @@ public class ScanUtil {
 		return scanInput.nextInt();
 	}
 
-	public static long scanLong(String prompt) {
+	public static Long scanLong(String prompt) {
 		boolean redo = true;
 		String input = scanString();
-		long d = 0;
+		Long d = 0L;
 		while(redo) {
 			try {
 				d = Long.parseLong(input);

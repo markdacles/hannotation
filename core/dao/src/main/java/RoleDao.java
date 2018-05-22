@@ -25,14 +25,14 @@ public class RoleDao {
   		HibernateUtil.closeCurrentSessionWithTrans();
   	}
 
-  	public void deleteRole(long id) {
+  	public void deleteRole(Long id) {
   		HibernateUtil.openCurrentSessionWithTrans();
   		Roles role = (Roles) HibernateUtil.getCurrentSession().get(Roles.class, id);
   		HibernateUtil.getCurrentSession().delete(role);
   		HibernateUtil.closeCurrentSessionWithTrans();
   	}
 
-    public Roles findById(long id) {
+    public Roles findById(Long id) {
       HibernateUtil.openCurrentSession();
       Roles role = (Roles) HibernateUtil.getCurrentSession().get(Roles.class, id);
       HibernateUtil.closeCurrentSession();

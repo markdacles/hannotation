@@ -15,11 +15,9 @@ public class PersonnelMgtMain {
 	private static PersonnelService personnelService = new PersonnelService();
 	
 	public static void main(String[] args) {
-		// Logger log = Logger.getLogger("org.hibernate");
-  //       log.setLevel(Level.INFO);
 
         int mainOption = 0, personnelOption = 0, pid = 0, contactOption = 0, roleOption = 0;
-        long id = 0, cid = 0, rid = 0;
+        Long id = 0L, cid = 0L, rid = 0L;
         boolean redo = true;
         boolean again = true;
 
@@ -179,7 +177,7 @@ public class PersonnelMgtMain {
 	      		} else if(roleOption == 3) {
 
 	      			System.out.print("Enter ID of role to be updated: ");
-	      			rid = ScanUtil.scanInt();
+	      			rid = ScanUtil.scanLong("Enter a valid role ID: ");
 	      			System.out.print("Enter role update: ");
 	      			ScanUtil.flushScanner();
 	      			String urole = 	ScanUtil.scanString();
@@ -306,7 +304,7 @@ public class PersonnelMgtMain {
 
 	}
 
-	private static void showContacts(long id) {
+	private static void showContacts(Long id) {
 
 			Personnel p = personnelService.findById(id);
 
@@ -324,7 +322,7 @@ public class PersonnelMgtMain {
 
 	}
 
-    private static Personnel updateContact(long id, long cid) {
+    private static Personnel updateContact(Long id, Long cid) {
     	Personnel p = personnelService.findById(id);
     	for(Contact c : p.getContact()) {
     		if(c.getContactId() == cid) {
@@ -343,7 +341,7 @@ public class PersonnelMgtMain {
     	return p;
     }
 
-    private static Personnel updatePersonnel(long id) {
+    private static Personnel updatePersonnel(Long id) {
    	    Personnel upPersonnel = personnelService.findById(id);
     	ScanUtil.flushScanner();
     	upPersonnel = updateBasicInfo(upPersonnel);
@@ -372,7 +370,7 @@ public class PersonnelMgtMain {
 		.forEach(e -> System.out.println(e.getRoleId()+" - "+e.getRole()));
     	System.out.print("Add roles: ");
     	String roleStringAdd = ScanUtil.scanString();
-    	List<Integer> roleListIdAdd = new ArrayList<>();
+    	List<Long> roleListIdAdd = new ArrayList<>();
     	boolean redo = true;
     	if(roleStringAdd == null || roleStringAdd.isEmpty()) { 
 			redo = false;
@@ -380,9 +378,9 @@ public class PersonnelMgtMain {
     	while(redo) {
     		try {
 				roleListIdAdd = Stream.of(roleStringAdd.split(","))
-		        	.map(Integer::parseInt)
+		        	.map(Long::parseLong)
 		            .collect(Collectors.toList());
-		        for(Integer i : roleListIdAdd) {
+		        for(Long i : roleListIdAdd) {
 		        	Roles r = roleService.findById(i);
 		        	if(aRoles.contains(r)) {
 		        		redo = false;
@@ -407,7 +405,7 @@ public class PersonnelMgtMain {
 	       	}
 	    }
 
-        for(Integer i : roleListIdAdd) {
+        for(Long i : roleListIdAdd) {
         	Roles r = roleService.findById(i);
         	upPersonnel.getRoles().add(r);
         }
@@ -417,7 +415,7 @@ public class PersonnelMgtMain {
 		.forEach(e -> System.out.println(e.getRoleId()+" - "+e.getRole()));
 		System.out.print("Delete roles: ");
 		String roleStringDel = ScanUtil.scanString();
-		List<Integer> roleListIdDel = new ArrayList<>();
+		List<Long> roleListIdDel = new ArrayList<>();
     	redo = true;
     	if(roleStringDel == null || roleStringDel.isEmpty()) { 
 			redo = false;
@@ -425,9 +423,9 @@ public class PersonnelMgtMain {
     	while(redo) {
     		try {
 				roleListIdDel = Stream.of(roleStringDel.split(","))
-		                .map(Integer::parseInt)
+		                .map(Long::parseLong)
 		                .collect(Collectors.toList());
-		        for(Integer i : roleListIdDel) {
+		        for(Long i : roleListIdDel) {
 		        	Roles r = roleService.findById(i);
 		        	if(upPersonnel.getRoles().contains(r)) {
 		        		redo = false;
@@ -451,7 +449,7 @@ public class PersonnelMgtMain {
 					}
 		    }
 		}
-        for(Integer i : roleListIdDel) {
+        for(Long i : roleListIdDel) {
         	Roles r = roleService.findById(i);
         	upPersonnel.getRoles().remove(r);
         }
@@ -512,16 +510,16 @@ public class PersonnelMgtMain {
 		System.out.print("Roles (Separate by comma for multiple roles): ");
 		String roleString = ScanUtil.scanString();
 		boolean redo = true;
-		List<Integer> roleList = new ArrayList<>();
+		List<Long> roleList = new ArrayList<>();
 		if(roleString == null || roleString.isEmpty()) { 
 			redo = false;
 		}
 		while(redo) {
 			try {
 				roleList = Stream.of(roleString.split(","))
-	                .map(Integer::parseInt)
+	                .map(Long::parseLong)
 	                .collect(Collectors.toList());
-	            for(Integer i : roleList) {
+	            for(Long i : roleList) {
 		        	Roles r = roleService.findById(i);
 		        	newPersonnel.getRoles().add(r);
 		        }

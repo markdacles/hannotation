@@ -1,5 +1,5 @@
 CREATE TABLE personnel (
-    id SERIAL NOT NULL PRIMARY KEY,
+    id bigint NOT NULL PRIMARY KEY,
     barangay character varying(255),
     city character varying(255),
     st_number character varying(255),
@@ -15,12 +15,12 @@ CREATE TABLE personnel (
 );
 
 CREATE TABLE roles (
-    role_id SERIAL NOT NULL PRIMARY KEY,
+    role_id bigint NOT NULL PRIMARY KEY,
     role character varying(255)
 );
 
 CREATE TABLE contact (
-    contact_id SERIAL NOT NULL PRIMARY KEY,
+    contact_id bigint NOT NULL PRIMARY KEY,
     email character varying(255),
     landline character varying(255),
     mobile character varying(255),
@@ -28,7 +28,7 @@ CREATE TABLE contact (
 );
 
 CREATE TABLE personnel_roles (
-    id SERIAL NOT NULL REFERENCES personnel(id),
-    role_id SERIAL NOT NULL REFERENCES roles(role_id),
+    id bigint NOT NULL REFERENCES personnel(id),
+    role_id bigint NOT NULL REFERENCES roles(role_id),
     PRIMARY KEY (id, role_id)
 );

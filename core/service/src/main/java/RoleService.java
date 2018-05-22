@@ -13,7 +13,7 @@ public class RoleService {
         return roles;
     }
 
-    public Roles findById(long id) {
+    public Roles findById(Long id) {
         Roles role = roleDao.findById(id);
         return role;
     }
@@ -24,13 +24,13 @@ public class RoleService {
         roleDao.addRole(newRole);
     }
 
-    public void updateRole(long id, String urole) {
+    public void updateRole(Long id, String urole) {
         Roles r = findById(id);
         r.setRole(urole);
         roleDao.roleUpdate(r);
     }
 
-    public void deleteRole(long id) {
+    public void deleteRole(Long id) {
         roleDao.deleteRole(id);
     }
 }

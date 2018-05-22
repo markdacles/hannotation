@@ -27,7 +27,7 @@ public class PersonnelService {
     	return personnelDao.findAll();
     }
 
-    public void deletePersonnel(long id) {
+    public void deletePersonnel(Long id) {
     	personnelDao.deletePersonnel(id);
     }
 
@@ -37,12 +37,12 @@ public class PersonnelService {
 		.forEach(e -> System.out.println(e.getRoleId()+" - "+e.getRole()));
 	}
 
-	public Personnel findById(long id) {
+	public Personnel findById(Long id) {
         Personnel personnel = personnelDao.findById(id);
         return personnel;
     }
 
-    public boolean checkPerson(long id) {
+    public boolean checkPerson(Long id) {
     	return personnelDao.checkPerson(id);
     }
 }

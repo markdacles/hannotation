@@ -23,50 +23,31 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "personnel")
 public class Personnel {
  
-
-    private long id;
-    private Name name;
-    private Address address;
-    private Date birthday;
-    private double gwa;
-    private Date dateHired;
-    private Set<Contact> contact  = new HashSet<Contact>();
-    private Set<Roles> roles  = new HashSet<Roles>();
-
-    public Personnel() { }
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
+    @Column
+    private Long id;
 
     @Embedded
-    public Name getName() { return name; }
-    public void setName(Name name) { this.name = name; }
+    private Name name;
 
     @Embedded
-    public Address getAddress() { return address; }
-    public void setAddress(Address address) { this.address = address; }
+    private Address address;
 
-    @Column(name = "birthday")
-    public Date getBirthday() { return birthday; }
-    public void setBirthday(Date birthday) { this.birthday = birthday; }    
+    @Column
+    private Date birthday;
 
-    @Column(name = "gwa")
-    public double getGwa() { return gwa; }
-    public void setGwa(double gwa) { this.gwa = gwa; }
+    @Column   
+    private Double gwa;
 
-    @Column(name = "date_hired")
-    public Date getDateHired() { return dateHired; }
-    public void setDateHired(Date dateHired) { this.dateHired = dateHired; }  
+    @Column
+    private Date dateHired;
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     @JoinColumn(name = "personnel_id")
-    public Set<Contact> getContact() { return contact; }
-    public void setContact(Set<Contact> contact) { this.contact = contact; }
+    private Set<Contact> contact  = new HashSet<Contact>();
 
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(targetEntity = Roles.class, fetch = FetchType.EAGER)
@@ -74,6 +55,31 @@ public class Personnel {
     @JoinTable(name = "personnel_roles", 
         joinColumns = {@JoinColumn(name="id")}, 
         inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Roles> roles  = new HashSet<Roles>();
+
+    public Personnel() { }
+    
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Name getName() { return name; }
+    public void setName(Name name) { this.name = name; }
+
+    public Address getAddress() { return address; }
+    public void setAddress(Address address) { this.address = address; }
+
+    public Date getBirthday() { return birthday; }
+    public void setBirthday(Date birthday) { this.birthday = birthday; }    
+
+    public Double getGwa() { return gwa; }
+    public void setGwa(Double gwa) { this.gwa = gwa; }
+
+    public Date getDateHired() { return dateHired; }
+    public void setDateHired(Date dateHired) { this.dateHired = dateHired; }  
+
+    public Set<Contact> getContact() { return contact; }
+    public void setContact(Set<Contact> contact) { this.contact = contact; }
+
     public Set<Roles> getRoles() { return roles; }
     public void setRoles(Set rroles) { roles = rroles; }
 

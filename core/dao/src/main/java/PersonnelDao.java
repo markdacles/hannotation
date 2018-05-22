@@ -19,7 +19,7 @@ public class PersonnelDao {
     return personnelList;
   	}
 
-    public Personnel getPersonnel(long id) {
+    public Personnel getPersonnel(Long id) {
       HibernateUtil.openCurrentSession();
       Personnel personnel = (Personnel) HibernateUtil.getCurrentSession().get(Personnel.class, id);
       HibernateUtil.closeCurrentSession();
@@ -32,14 +32,14 @@ public class PersonnelDao {
       HibernateUtil.closeCurrentSessionWithTrans();
     }
 
-    public void deletePersonnel(long id) {
+    public void deletePersonnel(Long id) {
       HibernateUtil.openCurrentSessionWithTrans();
       Personnel p = (Personnel) HibernateUtil.getCurrentSession().get(Personnel.class, id);
       HibernateUtil.getCurrentSession().delete(p);
       HibernateUtil.closeCurrentSessionWithTrans();
     }
 
-    public Personnel findById(long id) {
+    public Personnel findById(Long id) {
       HibernateUtil.openCurrentSession();
       Personnel personnel = (Personnel) HibernateUtil.getCurrentSession().get(Personnel.class, id);
       System.out.println("ping"); 
@@ -47,7 +47,7 @@ public class PersonnelDao {
       return personnel;
     }
 
-    public boolean checkPerson(long id) {
+    public boolean checkPerson(Long id) {
       HibernateUtil.openCurrentSession();
       Personnel personnel = (Personnel) HibernateUtil.getCurrentSession().get(Personnel.class, id);
       HibernateUtil.closeCurrentSession();

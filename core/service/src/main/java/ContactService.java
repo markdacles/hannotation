@@ -15,7 +15,7 @@ public class ContactService {
         personnelDao.contactUpdate(p);
     }
 
-    public void removeContact(long id, long cid) {
+    public void removeContact(Long id, Long cid) {
         Personnel p = personnelDao.getPersonnel(id);
         for(Contact c : p.getContact()) {
             if(c.getContactId() == cid) {
@@ -26,7 +26,7 @@ public class ContactService {
         personnelDao.removeContact(p);
     }
 
-    public boolean doesContactExist(long id) {
+    public boolean doesContactExist(Long id) {
         List<Personnel> personnelList =  personnelDao.findAll();
         for(Personnel p : personnelList) {
             for(Contact c : p.getContact()) {

@@ -8,10 +8,19 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "contact")
 public class Contact {
 
-	private long contactId;
-	private String landline;
-	private String mobile;
-	private String email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "contact_id")
+	private Long contactId;
+	
+    @Column
+    private String landline;
+	
+    @Column
+    private String mobile;
+	
+    @Column
+    private String email;
 
     public Contact() { }
 
@@ -21,21 +30,15 @@ public class Contact {
         this.email = email;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contact_id")
-	public long getContactId() { return contactId; }
-    public void setContactId(long cid) { contactId = cid; }  
+	public Long getContactId() { return contactId; }
+    public void setContactId(Long cid) { contactId = cid; }  
 
-    @Column(name="landline")
     public String getLandline() { return landline; }
     public void setLandline(String l) { landline = l; }  
 
-    @Column(name="mobile")
     public String getMobile() { return mobile; }
     public void setMobile(String m) { mobile = m; }  
 
-    @Column(name="email")
     public String getEmail() { return email; }
     public void setEmail(String e) { email = e; } 
 

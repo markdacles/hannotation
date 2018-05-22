@@ -25,25 +25,27 @@ import java.lang.*;
 @Table(name = "roles")
 public class Roles {
 	
-	private long roleId;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
+	private Long roleId;
+	
+	@Column
 	private String role;
+	
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@ManyToMany(targetEntity = Personnel.class, fetch = FetchType.LAZY, mappedBy = "roles")
+    @Cascade(CascadeType.SAVE_UPDATE)
 	private Set<Personnel> personnel;
 	
 	public Roles() { }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-	public long getRoleId() { return roleId; }
-	public void setRoleId(long r) { roleId = r; }
+	public Long getRoleId() { return roleId; }
+	public void setRoleId(Long r) { roleId = r; }
 
-	@Column(name="role")
 	public String getRole() { return role; }
 	public void setRole(String r) { role = r; }
 
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@ManyToMany(targetEntity = Personnel.class, fetch = FetchType.LAZY, mappedBy = "roles")
-    @Cascade(CascadeType.SAVE_UPDATE)
 	public Set<Personnel> getPersonnel() { return personnel; }
 	public void setPersonnel(Set<Personnel> p) { personnel = p; }
 
